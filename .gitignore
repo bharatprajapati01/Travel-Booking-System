@@ -1,0 +1,14 @@
+# Compiled Java files
+*.class
+bin/
+
+# Maven build files
+target/
+
+# IDE files
+.vscode/
+.idea/
+
+# Database files (optional)
+*.db
+*.sqlite
