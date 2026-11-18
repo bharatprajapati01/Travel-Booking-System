@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Travel Booking System</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f766e'/%3E%3Cpath d='M6 19l20-9-6 14-4-5-4 3 1-5z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap bar">
+      <a class="brand" href="#packages" aria-label="Travel Booking System home">
+        <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><rect width="32" height="32" rx="8" fill="var(--accent)"/><path d="M6 19l20-9-6 14-4-5-4 3 1-5z" fill="#fff"/></svg>
+        <span>Wayfare <small>Travel Booking</small></span>
+      </a>
+      <nav id="nav" aria-label="Sections">
+        <button data-tab="packages" class="on">Packages</button>
+        <button data-tab="book">Book</button>
+        <button data-tab="bookings">Bookings</button>
+        <button data-tab="travellers">Travellers</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="stats" id="stats" aria-live="polite"></section>
+
+    <!-- Packages -->
+    <section id="tab-packages" class="tab">
+      <div class="head"><h1>Tour packages</h1><p>Pick a destination, then book it in a couple of clicks.</p></div>
+      <div id="pkgGrid" class="grid"></div>
+    </section>
+
+    <!-- Book -->
+    <section id="tab-book" class="tab" hidden>
+      <div class="head"><h1>Book a package</h1><p>Choose a traveller and a package. Seats are held instantly.</p></div>
+      <div class="split">
+        <form id="bookForm" class="card" novalidate>
+          <label>Traveller
+            <select id="bkTraveller" required></select>
+          </label>
+          <p class="hint"><a href="#travellers" data-go="travellers">Register a new traveller</a> if they are not listed.</p>
+          <label>Package
+            <select id="bkPackage" required></select>
+          </label>
+          <label>Seats
+            <div class="stepper">
+              <button type="button" id="seatMinus" aria-label="Fewer seats">−</button>
+              <input id="bkSeats" type="number" min="1" value="1" inputmode="numeric">
+              <button type="button" id="seatPlus" aria-label="More seats">+</button>
+            </div>
+          </label>
+          <button class="btn primary" type="submit">Confirm booking</button>
+        </form>
+        <aside class="card summary" id="summary" aria-live="polite"></aside>
+      </div>
+    </section>
+
+    <!-- Bookings -->
+    <section id="tab-bookings" class="tab" hidden>
+      <div class="head"><h1>Booking report</h1><p>Cancelling refunds 90% of the total; a 10% charge applies.</p></div>
+      <div class="toolbar">
+        <div class="seg" id="statusFilter" role="group" aria-label="Filter by status">
+          <button data-f="ALL" class="on">All</button><button data-f="CONFIRMED">Confirmed</button><button data-f="CANCELLED">Cancelled</button>
+        </div>
+        <input id="bkSearch" type="search" placeholder="Search traveller or package…" aria-label="Search bookings">
+      </div>
+      <div class="card table-card"><div class="scroll"><table id="bkTable"></table></div></div>
+    </section>
+
+    <!-- Travellers -->
+    <section id="tab-travellers" class="tab" hidden>
+      <div class="head"><h1>Travellers</h1><p>Register travellers and see who is on the books.</p></div>
+      <div class="split">
+        <form id="regForm" class="card" novalidate>
+          <h2>Register traveller</h2>
+          <label>Full name <input id="rgName" required autocomplete="name"></label>
+          <label>Phone <input id="rgPhone" type="tel" autocomplete="tel" placeholder="Optional"></label>
+          <label>Email <input id="rgEmail" type="email" autocomplete="email" placeholder="Optional"></label>
+          <button class="btn primary" type="submit">Register</button>
+        </form>
+        <div class="card table-card"><div class="scroll"><table id="trTable"></table></div></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toasts" role="status" aria-live="polite"></div>
+
+  <dialog id="confirm">
+    <form method="dialog">
+      <h2 id="cfTitle"></h2>
+      <p id="cfBody"></p>
+      <div class="actions">
+        <button class="btn" value="no">Keep booking</button>
+        <button class="btn danger" value="yes">Cancel booking</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

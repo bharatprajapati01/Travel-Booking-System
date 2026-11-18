@@ -12,6 +12,23 @@ A Java-based desktop application for managing tour packages, traveller registrat
 - **Booking Report** – View booking information and reports.
 - **Database Management** – Store application data locally using SQLite.
 
+## Web Frontend
+
+A responsive web UI (packages, booking, cancellation with refund preview, booking report, traveller registration) runs on top of the same SQLite database. It uses only the JDK's built-in HTTP server, so there are no extra dependencies.
+
+```bash
+./run-web.sh          # Windows: run-web.bat   (optional port argument, default 8080)
+```
+
+Then open <http://localhost:8080>. Run it from the project root so `web/` and `travel_booking.db` are found. The Swing app still works as before (`run.bat`).
+
+| Method & path | Purpose |
+|---|---|
+| `GET /api/packages` | List packages |
+| `GET /api/travellers`, `POST /api/travellers` | List / register travellers |
+| `GET /api/bookings`, `POST /api/bookings` | Booking report / create booking |
+| `POST /api/bookings/{id}/cancel` | Cancel (90% refund, 10% charge) |
+
 ## Technologies Used
 
 - Java 17
@@ -36,6 +53,9 @@ Travel_Booking_System/
 │   └── travel/
 │       └── core/
 │           ├── Main.java
+│           ├── WebServer.java
+│           ├── TravelService.java
+│           ├── Json.java
 │           ├── TravelBookingGUI.java
 │           ├── DBConnection.java
 │           ├── TravelPackage.java
@@ -45,6 +65,8 @@ Travel_Booking_System/
 │           ├── Booking.java
 │           ├── Cancellable.java
 │           └── SeatsFullException.java
+├── web/            (index.html, styles.css, app.js)
+├── run-web.sh / run-web.bat
 ├── pom.xml
 └── README.md
 ```
